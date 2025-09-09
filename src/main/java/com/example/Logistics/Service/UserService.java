@@ -45,4 +45,25 @@ public class UserService {
         }
         return "INVALID";
     }
+
+	public String registerAdmin(UserDTO dto) {
+		if (userRepository.findByUsername(dto.getUsername()) != null) {
+            return "Username already exists";
+        }
+        if (userRepository.findByEmail(dto.getEmail()) != null) {
+            return "Email already exists";
+        }
+        if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+            return "Passwords do not match";
+        }
+
+        User user = new User();
+        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setRole("ADMIN");
+        userRepository.save(user);
+
+        return "success";
+	}
 }
