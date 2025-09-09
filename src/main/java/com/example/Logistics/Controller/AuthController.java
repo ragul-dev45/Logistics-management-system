@@ -38,7 +38,26 @@ public class AuthController {
             return "register";
         }
     }
-
+    
+    //admin registration
+    @GetMapping("/adminRegister")
+    public String adminRegister(Model model) {
+    	model.addAttribute("userDTO", new UserDTO());
+    	return "adminRegister";
+    }
+    
+    @PostMapping("/adminRegister")
+    public String registerAdmin(@ModelAttribute("userDTO") UserDTO dto, Model model) {
+        String result = userService.registerAdmin(dto);
+        if ("success".equals(result)) {
+            model.addAttribute("success", "Registration successful! Please login.");
+            return "login";
+        } else {
+            model.addAttribute("error", result);
+            return "register";
+        }
+    }
+    
     // Handle login
     @PostMapping("/login")
     public String loginUser(@RequestParam String username,
@@ -47,22 +66,17 @@ public class AuthController {
         String role = userService.login(username, password);
 
         if ("ADMIN".equalsIgnoreCase(role)) {
-            return "redirect:/admin";
+            return "redirect:/adminHome";
         } else if ("USER".equalsIgnoreCase(role)) {
-            return "redirect:/user";
+            return "redirect:/userHome";
         } else {
             model.addAttribute("error", "Invalid username or password");
             return "login";
         }
     }
 
-    @GetMapping("/admin")
-    public String adminPage() {
-        return "admin"; // create admin.jsp
-    }
-
-    @GetMapping("/user")
+    @GetMapping("/userHome")
     public String userPage() {
-        return "user"; // create user.jsp
+        return "userHome"; // create user.jsp
     }
 }
