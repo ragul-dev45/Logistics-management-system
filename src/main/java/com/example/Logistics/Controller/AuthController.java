@@ -1,11 +1,17 @@
 package com.example.Logistics.Controller;
 
-import com.example.Logistics.DTO.UserDTO;
-import com.example.Logistics.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.Logistics.DTO.UserDTO;
+import com.example.Logistics.Service.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AuthController {
@@ -43,26 +49,32 @@ public class AuthController {
     @PostMapping("/login")
     public String loginUser(@RequestParam String username,
                             @RequestParam String password,
+                            HttpSession session,
                             Model model) {
         String role = userService.login(username, password);
 
-        if ("ADMIN".equalsIgnoreCase(role)) {
-            return "redirect:/admin";
-        } else if ("USER".equalsIgnoreCase(role)) {
-            return "redirect:/user";
+        if ("ADMIN".equalsIgnoreCase(role) || "USER".equalsIgnoreCase(role)) {
+            // store username in session
+            session.setAttribute("loggedInUser", username);
+            return "userdashboard";  // redirect to user dashboard
         } else {
             model.addAttribute("error", "Invalid username or password");
             return "login";
         }
     }
 
-    @GetMapping("/admin")
-    public String adminPage() {
-        return "admin"; // create admin.jsp
+    // Dashboard
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "dashboard";
     }
-
-    @GetMapping("/user")
-    public String userPage() {
-        return "user"; // create user.jsp
+    @GetMapping("/shipments")
+    public String shipments() {
+        return "shipments";
     }
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+    
 }
