@@ -4,11 +4,41 @@
 <head>
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+    body{
+    background: #00FFEF;
+    }
+    .logout a {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 15px;
+            float: right;
+            margin-right: 125px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600; 
+            font-size: 14px;  
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+            margin-left: 80px;
+        }
+        .logout a:hover {
+ 
+            background: #a71d2a;
+        }
+    </style>
 </head>
 <body>
 <div class="container mt-5">
     <h2 class="mb-4">Admin Dashboard</h2>
 
+<header>
+   
+</header>
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
             <h4>Total Shipments: ${totalShipments}</h4>
@@ -58,5 +88,8 @@
         </div>
     </div>
 </div>
+ <div class="logout">
+        <a href="login">Logout</a>
+    </div>
 </body>
 </html>

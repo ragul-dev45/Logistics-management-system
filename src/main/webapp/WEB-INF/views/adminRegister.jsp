@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Register - Logistics System</title>
+    
     <style>
         body {
             font-family: Arial, sans-serif;

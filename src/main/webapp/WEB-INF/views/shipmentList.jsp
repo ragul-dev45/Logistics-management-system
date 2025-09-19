@@ -12,6 +12,32 @@
             padding: 40px;
         }
 
+            padding: 40px;
+            background-image: url("images/adminshipment.jpeg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 55%;   
+        }
+.back-btn {
+   background-color: #3498db;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 5px;
+            float: right;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600; 
+            font-size: 14px;  
+            letter-spacing: 0.5px;
+            margin-top: 25px;
+}
+
+.back-btn:hover {
+    background: #5a6268;
+}
         .container {
             max-width: 900px;
             margin: auto;
@@ -59,6 +85,9 @@
             background-color: #28a745;
             float: right;
             margin-bottom: 20px;
+            float: left;
+            margin-bottom: 20px;
+            margin-top:20px;
         }
 
         .btn-edit {
@@ -79,6 +108,7 @@
 <div class="container">
     <h2>Shipment List</h2>
 
+    <button type="button" class="back-btn" onclick="history.back()">Back</button>
     <a href="${pageContext.request.contextPath}/shipments/new" class="btn btn-add">+ Add New Shipment</a>
 
     <table>
@@ -90,6 +120,11 @@
             <th>Status</th>
             <th>Inserted At</th>
             <th>Updated At</th>
+			<th>Name</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Status</th>
+            <th>Estimated Date</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -102,6 +137,11 @@
                 <td>${shipment.status}</td>
                 <td>${shipment.insertedAt}</td>
                 <td>${shipment.updatedAt}</td>
+				<td>${shipment.name}</td>
+                <td>${shipment.origin}</td>
+                <td>${shipment.destination}</td>
+                <td>${shipment.status}</td>
+                <td>${shipment.estimatedDate}</td>
                 <td>
                     <a href="${pageContext.request.contextPath}/shipments/edit/${shipment.id}" class="btn btn-edit">Edit</a>
                     <a href="${pageContext.request.contextPath}/shipments/delete/${shipment.id}" class="btn btn-delete"
@@ -115,5 +155,10 @@
     </table>
 </div>
 
+</body>
+</html>
+    </table>   
+</div>
+ 
 </body>
 </html>

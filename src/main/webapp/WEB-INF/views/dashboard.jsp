@@ -39,7 +39,7 @@
         .right-section {
             flex: 1;
             text-align: center;
-            background: rgba(255, 255, 255, 0.9);
+            background: #a0d6d3;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 0 10px #000;

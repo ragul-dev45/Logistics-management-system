@@ -75,6 +75,8 @@ public class ShipmentService {
         shipment.setOrigin(dto.getOrigin());
         shipment.setDestination(dto.getDestination());
         shipment.setStatus(ShipmentStatus.valueOf(dto.getStatus()));
+        shipment.setName(dto.getName());
+        shipment.setEstimatedDate(dto.getEstimatedDate());
         shipment.setInsertedAt(dto.getInsertedAt());
         shipment.setUpdatedAt(dto.getUpdatedAt());
         return shipment;
@@ -87,6 +89,8 @@ public class ShipmentService {
         dto.setOrigin(shipment.getOrigin());
         dto.setDestination(shipment.getDestination());
         dto.setStatus(shipment.getStatus().name());
+        dto.setName(shipment.getName());
+        dto.setEstimatedDate(shipment.getEstimatedDate());
         dto.setInsertedAt(shipment.getInsertedAt());
         dto.setUpdatedAt(shipment.getUpdatedAt());
         return dto;

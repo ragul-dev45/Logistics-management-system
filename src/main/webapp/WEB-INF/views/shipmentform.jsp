@@ -4,6 +4,8 @@
 
 <%
     com.example.Logistics.DTO.ShipmentDTO shipmentDTO = (com.example.Logistics.DTO.ShipmentDTO) request.getAttribute("shipmentDTO");
+<%
+    ShipmentDTO shipmentDTO = (ShipmentDTO) request.getAttribute("shipmentDTO");
     boolean isEdit = (shipmentDTO != null && shipmentDTO.getId() != null);
 %>
 
@@ -15,6 +17,9 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #47c7ab;
             margin: 40px;
         }
         h2 {
@@ -23,6 +28,7 @@
         }
         form {
             background: #fff;
+            background: #cfc25f;
             padding: 25px 30px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -38,6 +44,9 @@
             color: #555;
         }
         input[type="text"], select {
+        input[type="text"],
+        input[type="date"],
+        select {
             width: 100%;
             padding: 8px 10px;
             border: 1px solid #ccc;
@@ -47,6 +56,7 @@
             transition: border-color 0.3s ease;
         }
         input[type="text"]:focus, select:focus {
+        input:focus, select:focus {
             border-color: #007bff;
             outline: none;
         }
@@ -77,6 +87,11 @@
     <% } %>
 
     <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<%= shipmentDTO != null && shipmentDTO.getName() != null ? shipmentDTO.getName() : "" %>" />
+    </div>
+
+    <div>
         <label for="origin">Origin:</label>
         <input type="text" id="origin" name="origin" value="<%= shipmentDTO != null && shipmentDTO.getOrigin() != null ? shipmentDTO.getOrigin() : "" %>" />
     </div>
@@ -84,6 +99,12 @@
     <div>
         <label for="destination">Destination:</label>
         <input type="text" id="destination" name="destination" value="<%= shipmentDTO != null && shipmentDTO.getDestination() != null ? shipmentDTO.getDestination() : "" %>" />
+    </div>
+
+    <div>
+        <label for="estimatedDate">Estimated Date:</label>
+        <input type="date" id="estimatedDate" name="estimatedDate"
+               value="<%= shipmentDTO != null && shipmentDTO.getEstimatedDate() != null ? shipmentDTO.getEstimatedDate().toString() : "" %>" />
     </div>
 
     <div>
@@ -103,4 +124,5 @@
 </form>
 
 </body>
+</html>
 </html>

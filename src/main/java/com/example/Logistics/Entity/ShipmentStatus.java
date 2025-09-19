@@ -1,3 +1,4 @@
+
 package com.example.Logistics.Entity;
 
 public enum ShipmentStatus {
@@ -5,3 +6,5 @@ public enum ShipmentStatus {
     IN_TRANSIT,
     DELIVERED
 }
+}
+

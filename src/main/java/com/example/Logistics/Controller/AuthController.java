@@ -1,11 +1,15 @@
 package com.example.Logistics.Controller;
 
-import com.example.Logistics.DTO.UserDTO;
-import com.example.Logistics.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import com.example.Logistics.DTO.UserDTO;
+import com.example.Logistics.Service.UserService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AuthController {
@@ -62,6 +66,7 @@ public class AuthController {
     @PostMapping("/login")
     public String loginUser(@RequestParam String username,
                             @RequestParam String password,
+                            HttpSession session,
                             Model model) {
         String role = userService.login(username, password);
 
@@ -69,8 +74,16 @@ public class AuthController {
             return "redirect:/adminHome";
         } else if ("USER".equalsIgnoreCase(role)) {
             return "redirect:/userHome";
+            session.setAttribute("loggedInUser", username);
+            session.setAttribute("role", "ADMIN");
+            return "redirect:/adminHome";   // redirect to admin dashboard
+        } else if ("USER".equalsIgnoreCase(role)) {
+            session.setAttribute("loggedInUser", username);
+            session.setAttribute("role", "USER");
+            return "userdashboard";    // redirect to user dashboard
         } else {
             model.addAttribute("error", "Invalid username or password");
+            model.addAttribute("loginAttempted", true);
             return "login";
         }
     }
@@ -79,4 +92,14 @@ public class AuthController {
     public String userPage() {
         return "userHome"; // create user.jsp
     }
+}
+    // Dashboard
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "userdashboard";
+    }
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }    
 }
