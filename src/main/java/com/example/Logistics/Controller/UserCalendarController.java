@@ -17,7 +17,7 @@ public class UserCalendarController {
 
     @GetMapping("/calendar")
     public String showCalendar(Model model) {
-        String username = "hari";
+        String username = " ";
         List<UserCalendarDto> events = calendarService.getUserEvents(username);
 
         model.addAttribute("username", username);

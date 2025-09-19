@@ -30,7 +30,7 @@
     </table>
 
     <div class="text-center mt-4">
-        <a href="${pageContext.request.contextPath}/dashboard" class="btn btn-primary">Back to Dashboard</a>
+        <a href="${pageContext.request.contextPath}/dashboard" class="btn btn-primary">Back</a>
     </div>
 </div>
 

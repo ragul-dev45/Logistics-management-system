@@ -65,7 +65,7 @@
     </div>
 
     <div class="text-center mt-4">
-        <a href="/" class="btn btn-light">⬅ Back to Dashboard</a>
+        <a href="/dashboard" class="btn btn-light">⬅ Back</a>
     </div>
 </div>
 </body>

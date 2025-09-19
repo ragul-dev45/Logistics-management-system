@@ -1,26 +1,34 @@
 package com.example.Logistics.Service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.example.Logistics.DTO.UserReportDto;
+import com.example.Logistics.Entity.UserReport;
+import com.example.Logistics.Repository.UserReportRepository;
 
 @Service
 public class UserReportService {
 
+    @Autowired
+    private UserReportRepository reportRepository;
+
     public List<UserReportDto> getReportsForUser(String username) {
-        // Hardcoded reports for user 'hari'
-        List<UserReportDto> reports = new ArrayList<>();
+        List<UserReport> reports = reportRepository.findByName(username);
 
-        if ("hari".equalsIgnoreCase(username)) {
-            reports.add(new UserReportDto(5000.0, 2000.0, LocalDate.of(2025, 9, 15), true, false));
-            reports.add(new UserReportDto(3000.0, 1000.0, LocalDate.of(2025, 10, 5), false, true));
-        }
-
-        return reports;
+        return reports.stream()
+                .map(r -> new UserReportDto(
+                        r.getName(),
+                        r.getOrigin(),
+                        r.getDestination(),
+                        r.getStatus(),
+                        r.getEstimatedDate(),
+                        r.getAmountPaid(),
+                        r.getPendingAmount()
+                ))
+                .collect(Collectors.toList());
     }
 }

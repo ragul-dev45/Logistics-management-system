@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.example.Logistics.DTO.UserDTO;
 import com.example.Logistics.Service.UserService;
-
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -44,7 +42,24 @@ public class AuthController {
             return "register";
         }
     }
-
+    
+    @GetMapping("/adminRegister")
+    public String adminRegister(Model model) {
+    	model.addAttribute("userDTO", new UserDTO());
+    	return "adminRegister";
+    }
+    
+    @PostMapping("/adminRegister")
+    public String registerAdmin(@ModelAttribute("userDTO") UserDTO dto, Model model) {
+        String result = userService.registerAdmin(dto);
+        if ("success".equals(result)) {
+            model.addAttribute("success", "Registration successful! Please login.");
+            return "login";
+        } else {
+            model.addAttribute("error", result);
+            return "register";
+        }
+    }
     // Handle login
     @PostMapping("/login")
     public String loginUser(@RequestParam String username,
@@ -53,28 +68,27 @@ public class AuthController {
                             Model model) {
         String role = userService.login(username, password);
 
-        if ("ADMIN".equalsIgnoreCase(role) || "USER".equalsIgnoreCase(role)) {
-            // store username in session
+        if ("ADMIN".equalsIgnoreCase(role)) {
             session.setAttribute("loggedInUser", username);
-            return "userdashboard";  // redirect to user dashboard
+            session.setAttribute("role", "ADMIN");
+            return "redirect:/adminHome";   // redirect to admin dashboard
+        } else if ("USER".equalsIgnoreCase(role)) {
+            session.setAttribute("loggedInUser", username);
+            session.setAttribute("role", "USER");
+            return "userdashboard";    // redirect to user dashboard
         } else {
             model.addAttribute("error", "Invalid username or password");
+            model.addAttribute("loginAttempted", true);
             return "login";
         }
     }
-
     // Dashboard
     @GetMapping("/dashboard")
     public String dashboard() {
-        return "dashboard";
-    }
-    @GetMapping("/shipments")
-    public String shipments() {
-        return "shipments";
+        return "userdashboard";
     }
     @GetMapping("/about")
     public String about() {
         return "about";
-    }
-    
+    }    
 }

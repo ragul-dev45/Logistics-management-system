@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f4f4f4;
+            background: #00FFEF;
             margin: 0;
             padding: 0;
         }
@@ -31,16 +31,19 @@
         }
         .container {
             padding: 20px;
+            text-align: center;
         }
         .module-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-direction: column; /* stack items vertically */
             gap: 20px;
             margin-top: 30px;
+            align-items: center; /* center align horizontally */
         }
         .card {
             background: #fff;
-            padding: 30px;
+            padding: 20px;
+            width: 400px; /* fixed width for neat look */
             text-align: center;
             border-radius: 8px;
             box-shadow: 0 0 5px rgba(0,0,0,0.2);

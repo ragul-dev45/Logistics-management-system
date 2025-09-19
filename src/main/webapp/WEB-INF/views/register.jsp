@@ -11,10 +11,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background: url('${pageContext.request.contextPath}/images/register2.jpg') no-repeat center center fixed;
             height: 100vh;
+            background-size: cover; 
         }
         .register-box {
-            background: white;
+            background: #d9edf7;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 0 10px #aaa;

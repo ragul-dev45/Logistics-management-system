@@ -35,6 +35,28 @@ public class UserService {
         userRepository.save(user);
 
         return "success";
+        
+    }
+ // For admin registration
+    public String registerAdmin(UserDTO dto) {
+        if (userRepository.findByUsername(dto.getUsername()) != null) {
+            return "Username already exists";
+        }
+        if (userRepository.findByEmail(dto.getEmail()) != null) {
+            return "Email already exists";
+        }
+        if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+            return "Passwords do not match";
+        }
+
+        User admin = new User();
+        admin.setUsername(dto.getUsername());
+        admin.setEmail(dto.getEmail());
+        admin.setPassword(passwordEncoder.encode(dto.getPassword()));
+        admin.setRole("ADMIN");  // ✅ Role = ADMIN
+        userRepository.save(admin);
+
+        return "success";
     }
 
     // Login
